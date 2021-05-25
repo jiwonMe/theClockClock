@@ -8,8 +8,8 @@ class ClockHand {
         l=length;
     }
 
-    void update(float deg){
-        angle=deg;
+    void update(float speed){
+        angle+=speed;
     }
 
     void display() {

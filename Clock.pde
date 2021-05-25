@@ -5,6 +5,9 @@ class Clock {
     float radius=110.0;
     ClockHand hourHand;
     ClockHand minuteHand;
+    boolean power=false;
+    float speed_h=0.0;
+    float speed_m=0.0;
 
     Clock(float hour_, float minute_, float second_, float posX, float posY, float radius_) {
         h=hour_;
@@ -16,8 +19,8 @@ class Clock {
 
         radius = radius_;
 
-        hourHand = new ClockHand(posX, posY, 30.0, radius);
-        minuteHand = new ClockHand(posX, posY, 0.0, radius);
+        hourHand = new ClockHand(posX, posY, -PI/2, radius);
+        minuteHand = new ClockHand(posX, posY, -PI/2, radius);
     }
 
     void realtime() {
@@ -48,10 +51,45 @@ class Clock {
         minuteHand.update((minute_/60.0)*TWO_PI -PI/2);
     }
 
-    void update(Clock prevState, Clock nextState, float percentages){
-        float minute_ = prevState.m + (nextState.m - prevState.m)*percentages;
-        float hour_ = prevState.h + (nextState.h - prevState.h)*percentages;
-        hourHand.update(((hour_%12)/12.0)*TWO_PI -PI/2);
-        minuteHand.update((minute_/60.0)*TWO_PI -PI/2);
+    void powerSwitch(String state){
+        if(state.equals("ON")) power=true;
+        if(state.equals("OFF")) power=false;
+        println(state);
+    }
+
+    int compare(float a, float b){
+        float EPSILON = 0.01;
+        if(abs(a-b)<EPSILON) return 0;
+        else return 1;
+    }
+
+    void update(float hour_, float minute_){
+        if(!power && (compare(hour_%12,h%12)==0 && compare(minute_%12,m%12)==0)) return;
+
+        if(compare(hour_%12,h%12)==0 && compare(minute_%60,m%60)==0){
+            speed_h=0;
+            speed_m=0;
+            powerSwitch("OFF");
+            return;
+        }
+
+        if(Float.compare(hour_,h)==0) speed_h=0;
+        if(Float.compare(minute_,m)==0) speed_m=0;
+        
+        if(!power){
+            speed_h = (hour_ - h)/INTERVAL;
+            speed_m = (minute_ - m)/INTERVAL;
+            powerSwitch("ON");
+            return;
+        }
+
+        if(power) {
+            hourHand.update(speed_h/12*TWO_PI);
+            minuteHand.update(speed_m/60*TWO_PI);
+
+            h = (h+speed_h)%12;
+            m = (m+speed_m)%60;
+        }
+        println("h-hour_: "+(h-hour_));
     }
 }

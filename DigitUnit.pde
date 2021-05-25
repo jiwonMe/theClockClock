@@ -12,7 +12,7 @@ class DigitUnit {
 
         for(int i=0; i<3; i++ ){
             for(int j=0; j<2; j++) {
-                clocks[i][j] = new Clock(hour(),minute(),second(),posX+j*90, posY+i*90, 40);
+                clocks[i][j] = new Clock(0,0,0,posX+j*90, posY+i*90, 40);
             }
         }
     }
@@ -24,7 +24,7 @@ class DigitUnit {
     }
 
     //@change
-    void update(int n, float percentages){
+    void update(int n){
         JSONArray values = digitData.getJSONArray("digits");
         int k=0;
         for(int i=0; i<3; i++){
@@ -32,9 +32,7 @@ class DigitUnit {
                 String control = values.getJSONObject(n).getJSONArray("clocks").getString(k);
                 float h = digitData.getJSONObject("controls").getJSONObject(control).getFloat("hours");
                 float m = digitData.getJSONObject("controls").getJSONObject(control).getFloat("minutes");
-                clocks[i][j].update(clocks[i][j], new Clock(h,m,0,0,0,0), percentages);
-
-                if(percentages>=1) clocks[i][j].set(h,m);
+                clocks[i][j].update(h,m);
                 k++;
             }
         }
