@@ -1,0 +1,56 @@
+{
+    "digits": [{
+            "digit": 0,
+            "clocks": ["R", "T", "V", "V", "L", "J"]
+        },
+        {
+            "digit": 1,
+            "clocks": ["N", "3", "N", "V", "N", "1"]
+        },
+        {
+            "digit": 2,
+            "clocks": ["2", "T", "R", "J", "L", "4"]
+        },
+        {
+            "digit": 3,
+            "clocks": ["2", "T", "2", "J", "2", "J"]
+        },
+        {
+            "digit": 4,
+            "clocks": ["3", "3", "L", "V", "N", "1"]
+        },
+        {
+            "digit": 5,
+            "clocks": ["R", "4", "L", "T", "2", "J"]
+        },
+        {
+            "digit": 6,
+            "clocks": ["R", "4", "V", "T", "L", "J"]
+        },
+        {
+            "digit": 7,
+            "clocks": ["2", "T", "N", "V", "N", "1"]
+        },
+        {
+            "digit": 8,
+            "clocks": ["R", "T", "L", "J", "L", "J"]
+        },
+        {
+            "digit": 9,
+            "clocks": ["R", "T", "L", "V", "2", "J"]
+        }
+    ],
+    "controls": {
+        "1": { "hours": 12, "minutes": 0 },
+        "2": { "hours": 3, "minutes": 15 },
+        "3": { "hours": 6, "minutes": 30 },
+        "4": { "hours": 9, "minutes": 45 },
+        "V": { "hours": 12, "minutes": 30 },
+        "H": { "hours": 9, "minutes": 15 },
+        "R": { "hours": 6, "minutes": 15 },
+        "T": { "hours": 6, "minutes": 45 },
+        "L": { "hours": 12, "minutes": 15 },
+        "J": { "hours": 12, "minutes": 45 },
+        "N": { "hours": 7.5, "minutes": 37.5 }
+    }
+}
