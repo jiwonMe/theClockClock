@@ -19,8 +19,8 @@ class Clock {
 
         radius = radius_;
 
-        hourHand = new ClockHand(posX, posY, -PI/2, radius);
-        minuteHand = new ClockHand(posX, posY, -PI/2, radius);
+        hourHand = new ClockHand(posX, posY, hour_/12*TWO_PI-PI/2, radius);
+        minuteHand = new ClockHand(posX, posY, minute_/60*TWO_PI-PI/2, radius);
     }
 
     void realtime() {
@@ -58,27 +58,28 @@ class Clock {
     }
 
     int compare(float a, float b){
-        float EPSILON = 0.01;
+        float EPSILON = 0.005;
+        
         if(abs(a-b)<EPSILON) return 0;
-        else return 1;
+        println("abs(a-b): "+abs(a-b));
+        return 1;
     }
 
     void update(float hour_, float minute_){
-        if(!power && (compare(hour_%12,h%12)==0 && compare(minute_%12,m%12)==0)) return;
+        if(!power && (compare((hour_%12)/12,(h%12)/12)==0 && compare((minute_%60)/60,(m%60)/60)==0)) return;
 
-        if(compare(hour_%12,h%12)==0 && compare(minute_%60,m%60)==0){
+        if(compare((hour_%12)/12,(h%12)/12)==0 && compare((minute_%60)/60,(m%60)/60)==0){
             speed_h=0;
             speed_m=0;
             powerSwitch("OFF");
             return;
         }
 
-        if(Float.compare(hour_,h)==0) speed_h=0;
-        if(Float.compare(minute_,m)==0) speed_m=0;
+
         
         if(!power){
-            speed_h = (hour_ - h)/INTERVAL;
-            speed_m = (minute_ - m)/INTERVAL;
+            speed_h = (hour_ - h +12)/INTERVAL;
+            speed_m = (minute_ - m +120)/INTERVAL;
             powerSwitch("ON");
             return;
         }
@@ -90,6 +91,6 @@ class Clock {
             h = (h+speed_h)%12;
             m = (m+speed_m)%60;
         }
-        println("h-hour_: "+(h-hour_));
+        // println("h-hour_: "+(h-hour_));
     }
 }

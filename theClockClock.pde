@@ -1,7 +1,7 @@
 ClockClock clockClock;
 
 DigitUnit[] digits = new DigitUnit[4];
-static final int INTERVAL = 500;
+static final int INTERVAL = 300;
 
 JSONObject digitData;
 

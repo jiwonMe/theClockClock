@@ -12,7 +12,7 @@ class DigitUnit {
 
         for(int i=0; i<3; i++ ){
             for(int j=0; j<2; j++) {
-                clocks[i][j] = new Clock(0,0,0,posX+j*90, posY+i*90, 40);
+                clocks[i][j] = new Clock(hour(),minute(),0,posX+j*90, posY+i*90, 40);
             }
         }
     }
